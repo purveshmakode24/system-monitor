@@ -5,4 +5,4 @@
 It monitors your computer system and give you all related computer hardware info. 
 
 
-## Download for Windows [here](https://github.com/purveshmakode24/system-monitor/releases)
+### Download for Windows [here](https://github.com/purveshmakode24/system-monitor/releases)
