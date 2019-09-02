@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>System Monitor</title>
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        @media(max-width:400px){
+            .head {
+                font-size: 30px;
+            }
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="container">
+    <div class="row center">
+        <h3><a class="btn-floating btn red pulse"><i class="material-icons">dvr</i></a>&nbsp<span class="head"> System Monitor</span></h3>
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <blockquote><h5 style="color: #EE6E73;">Application version Data:</h5></blockquote>
+            <hr>
+            <div id="app-version-data"></div>
+
+        </div>
+
+    </div>
+    <div class="row">
+        <div class="col s12">
+            <blockquote><h5 style="color: #EE6E73;">System Specifications:</h5></blockquote>
+            <hr>
+           <div id="sys-specs"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <blockquote><h5 style="color: #EE6E73;">System Memory:</h5></blockquote>
+            <hr>
+            <div id="sys-memory"></div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col s12">
+            <blockquote><h5 style="color: #EE6E73;">Computer Information:</h5></blockquote>
+            <hr>
+            <div id="comp-info"></div>
+        </div>
+    </div>
+
+</div>
+
+
+</body>
+<script>
+    var node_v, chrome_v, electron_v;
+    if (!process.versions.node) {
+        node_v = "N/A";
+    }else{
+        node_v = process.versions.node;
+    }
+
+    if (!process.versions.chrome) {
+        chrome_v = "N/A";
+    }else{
+        chrome_v = process.versions.chrome;
+    }
+
+    if (!process.versions.electron) {
+        electron_v = "N/A";
+    }else{
+        electron_v = process.versions.electron;
+    }
+
+    if (!process.env.PRINTER) {
+        printer_v1 = "N/A";
+    }else{
+        printer_v1 = process.env.PRINTER;
+    }
+
+
+    let app_version = `
+        <table class="striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Version</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>Node</td>
+                <td>${node_v}</td>
+
+            </tr>
+            <tr>
+                <td>Chrome</td>
+                <td>${chrome_v}</td>
+
+            </tr>
+            <tr>
+                <td>Electron</td>
+                <td>${electron_v}</td>
+            </tr>
+            </tbody>
+        </table>
+`;
+
+    let sys_spec = `
+        <table class="striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Version/Info</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>System Architecture</td>
+                <td>${process.arch}</td>
+
+            </tr>
+            <tr>
+                <td>Processor Identifier</td>
+                <td>${process.env.PROCESSOR_IDENTIFIER}</td>
+
+            </tr>
+            <tr>
+                <td>Processor Level</td>
+                <td>${process.env.PROCESSOR_LEVEL}</td>
+            </tr>
+            <tr>
+                <td>Processor Revision</td>
+                <td>${process.env.PROCESSOR_REVISION}</td>
+            </tr>
+            <tr>
+                <td>Printer</td>
+                <td>${printer_v1}</td>
+            </tr>
+            </tbody>
+        </table>
+`;
+
+
+    let sys_memory = `
+        <table class="striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Memory</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>Total</td>
+                <td>${process.getSystemMemoryInfo().total}</td>
+
+            </tr>
+            <tr>
+                <td>Free</td>
+                <td>${process.getSystemMemoryInfo().free}</td>
+
+            </tr>
+            <tr>
+                <td>Swap Free</td>
+                <td>${process.getSystemMemoryInfo().swapFree}</td>
+            </tr>
+            <tr>
+                <td>Swap Total</td>
+                <td>${process.getSystemMemoryInfo().swapTotal}</td>
+            </tr>
+            </tbody>
+        </table>
+`;
+
+    let comp_info = `
+        <table class="striped">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Version/Info</th>
+
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr>
+                <td>Computer Name</td>
+                <td>${process.env.COMPUTERNAME}</td>
+
+            </tr>
+            <tr>
+                <td>Operating System</td>
+                <td>${process.env.OS}</td>
+
+            </tr>
+            <tr>
+                <td>temporary Files Path</td>
+                <td>${process.env.TEMP}</td>
+            </tr>
+            <tr>
+                <td>User HomePath</td>
+                <td>${process.env.HOMEPATH}</td>
+            </tr>
+            </tbody>
+        </table>
+`;
+
+    // var result = process.versions.chrome;
+    //console.log(result);
+
+    document.getElementById('app-version-data').innerHTML = app_version;
+    document.getElementById('sys-specs').innerHTML = sys_spec;
+    document.getElementById('sys-memory').innerHTML = sys_memory;
+    document.getElementById('comp-info').innerHTML = comp_info;
+    console.log(process);
+</script>
+
+<script>
+    require('./renderer.js');
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+</html>
