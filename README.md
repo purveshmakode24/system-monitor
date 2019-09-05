@@ -2,7 +2,7 @@
 
 <h2 align="center">System Monitor</h2>
  
-It monitors your computer system and gives you all related computer hardware info. 
+A Desktop App which monitors your computer system and gives you all related computer hardware info. 
 
 
 ### Download for Windows [here](https://github.com/purveshmakode24/system-monitor/releases)
